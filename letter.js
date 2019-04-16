@@ -3,7 +3,7 @@ let Letter = function(char) {
   this.isGuessed = false;
 };
 
-Letter.prototype.getLetter = () => {
+Letter.prototype.getLetter = function() {
   if (this.isGuessed) {
     return this.letter;
   }
@@ -11,7 +11,7 @@ Letter.prototype.getLetter = () => {
   return "_";
 };
 
-Letter.prototype.checkGuessedLetter = guessedLetter => {
+Letter.prototype.checkGuessedLetter = function(guessedLetter) {
   if (guessedLetter === this.letter) {
     this.isGuessed = true;
   }

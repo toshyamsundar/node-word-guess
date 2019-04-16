@@ -1,20 +1,25 @@
-let letter = require("./letter");
+let Letter = require("./letter");
+
+let randomWord = [];
 
 let Word = function(selectedWord) {
-  let randomWord = [];
   for (let i = 0; i < selectedWord.length; i++) {
-    randomWord[i] = new letter(selectedWord[i]);
+    randomWord.push(new Letter(selectedWord[i]));
   }
 };
 
-Word.prototype.getWord = () => {
+Word.prototype.getWord = function() {
   let currentWord = "";
   randomWord.forEach(letter => {
-    currentWord += letter.getLetter();
+    currentWord += letter.getLetter() + " ";
   });
   console.log(`currentWord: ${currentWord}`);
 };
 
-Word.prototype.checkWordForLetter = keyPressed => {
-  letter.checkGuessedLetter(keyPressed);
+Word.prototype.checkWordForLetter = function(keyPressed) {
+  randomWord.forEach(letter => {
+    letter.checkGuessedLetter(keyPressed);
+  });
 };
+
+module.exports = Word;
