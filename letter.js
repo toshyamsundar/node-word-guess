@@ -1,12 +1,6 @@
-var Letter = function(char) {
+let Letter = function(char) {
   this.letter = char;
   this.isGuessed = false;
-};
-
-Letter.prototype.checkGuessedLetter = guessedLetter => {
-  if (guessedLetter === this.letter) {
-    this.isGuessed = true;
-  }
 };
 
 Letter.prototype.getLetter = () => {
@@ -15,6 +9,12 @@ Letter.prototype.getLetter = () => {
   }
 
   return "_";
+};
+
+Letter.prototype.checkGuessedLetter = guessedLetter => {
+  if (guessedLetter === this.letter) {
+    this.isGuessed = true;
+  }
 };
 
 module.exports = Letter;
