@@ -122,26 +122,68 @@ let randomWords = [
 ];
 
 let randomWord = "";
+let guessCount = 5;
 
 let generateRandomWord = () => {
   index = Math.floor(Math.random() * randomWords.length);
   randomWord = new Word(randomWords[index]);
 };
 
-inquirer
-  .prompt([
-    {
-      type: "list",
-      message: "Do you want to play?",
-      choices: ["Yes", "No"],
-      name: "startPlay"
-    }
-  ])
-  .then(response => {
-    if (response.startPlay === "Yes") {
-      generateRandomWord();
-      console.log("\n");
-      let currentWord = randomWord.getWord();
-      console.log(`${currentWord}`);
-    }
-  });
+let guessLetter = () => {
+  if (guessCount > 0) {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "Guess a letter [a-z]: ",
+          name: "guessedLetter"
+        }
+      ])
+      .then(response => {
+        console.log(`\n`);
+        let isCorrectLetter = randomWord.checkWordForLetter(response.guessedLetter.toUpperCase());
+
+        if (!isCorrectLetter) {
+          guessCount--;
+          console.log("You are wrong!!");
+        } else {
+          console.log("You are correct!!");
+        }
+
+        let currentWord = randomWord.getWord();
+        console.log(`\n> ${currentWord} \n`);
+
+        if (currentWord.includes("_")) {
+          guessLetter();
+        } else {
+          console.log(`\n YOU WIN!!! \n\n`);
+          initializeGame();
+        }
+      });
+  }
+};
+
+let initializeGame = () => {
+  guessCount = 5;
+  randomWord = "";
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Do you want to play?",
+        choices: ["Yes", "No"],
+        name: "startPlay"
+      }
+    ])
+    .then(response => {
+      if (response.startPlay === "Yes") {
+        generateRandomWord();
+        let currentWord = randomWord.getWord();
+        console.log(`\n> ${currentWord} \n`);
+        guessLetter();
+      }
+    });
+};
+
+initializeGame();

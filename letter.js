@@ -1,6 +1,6 @@
 let Letter = function(char) {
   this.letter = char;
-  this.isGuessed = true;
+  this.isGuessed = false;
 };
 
 Letter.prototype.getLetter = function() {
@@ -12,9 +12,12 @@ Letter.prototype.getLetter = function() {
 };
 
 Letter.prototype.checkGuessedLetter = function(guessedLetter) {
+  console.log(`Guessed: ${guessedLetter}`);
+  console.log(`Letter this: ${this.letter}`);
   if (guessedLetter === this.letter) {
     this.isGuessed = true;
   }
+  return this.isGuessed;
 };
 
 module.exports = Letter;

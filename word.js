@@ -2,6 +2,7 @@ let Letter = require("./letter");
 
 let Word = function(selectedWord) {
   this.randomWord = [];
+  this.isCorrectLetter = false;
   for (let i = 0; i < selectedWord.length; i++) {
     this.randomWord.push(new Letter(selectedWord[i]));
   }
@@ -15,10 +16,14 @@ Word.prototype.getWord = function() {
   return currentWord;
 };
 
-Word.prototype.checkWordForLetter = function(keyPressed) {
+Word.prototype.checkWordForLetter = function(guessedLetter) {
+  console.log(`Checking ${guessedLetter} in Word`);
   this.randomWord.forEach(letter => {
-    letter.checkGuessedLetter(keyPressed);
+    if (letter.checkGuessedLetter(guessedLetter)) {
+      this.isCorrectLetter = true;
+    }
   });
+  return this.isCorrectLetter;
 };
 
 module.exports = Word;
