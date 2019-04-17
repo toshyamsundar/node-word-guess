@@ -1,6 +1,6 @@
 let Letter = function(char) {
   this.letter = char;
-  this.isGuessed = false;
+  this.isGuessed = true;
 };
 
 Letter.prototype.getLetter = function() {

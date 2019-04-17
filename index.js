@@ -128,6 +128,20 @@ let generateRandomWord = () => {
   randomWord = new Word(randomWords[index]);
 };
 
-generateRandomWord();
-
-randomWord.getWord();
+inquirer
+  .prompt([
+    {
+      type: "list",
+      message: "Do you want to play?",
+      choices: ["Yes", "No"],
+      name: "startPlay"
+    }
+  ])
+  .then(response => {
+    if (response.startPlay === "Yes") {
+      generateRandomWord();
+      console.log("\n");
+      let currentWord = randomWord.getWord();
+      console.log(`${currentWord}`);
+    }
+  });
