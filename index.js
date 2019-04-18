@@ -124,6 +124,7 @@ let randomWords = [
 
 let randomWord = "";
 let guessCount = 5;
+let guessedLetters = [];
 
 let generateRandomWord = () => {
   index = Math.floor(Math.random() * randomWords.length);
@@ -142,25 +143,35 @@ let guessLetter = () => {
       ])
       .then(response => {
         console.log(`\n`);
-        let isCorrectLetter = randomWord.checkWordForLetter(response.guessedLetter.toUpperCase());
+        let currentLetter = response.guessedLetter.toUpperCase();
+        let currentWord = "";
+        if (!guessedLetters.includes(currentLetter)) {
+          guessedLetters.push(currentLetter);
+          let isCorrectLetter = randomWord.checkWordForLetter(currentLetter);
 
-        if (!isCorrectLetter) {
-          console.log(`\n ${chalk.bold.red("You got it WRONG!!")}`);
-          guessCount--;
-          console.log("\n" + chalk.bold.yellowBright(" You have " + guessCount + " guesses left..\n"));
+          if (!isCorrectLetter) {
+            console.log(`\n ${chalk.bold.red("You got it WRONG!!")}`);
+            guessCount--;
+            console.log("\n" + chalk.bold.yellowBright(" You have " + guessCount + " guesses left..\n"));
+          } else {
+            console.log(`\n ${chalk.bold.green("You got it RIGHT!!")}`);
+            console.log("\n" + chalk.bold.yellowBright(" You have " + guessCount + " guesses left..\n"));
+          }
+
+          currentWord = randomWord.getWord();
+          console.log(`\n> ${currentWord} \n`);
+
+          if (currentWord.includes("_")) {
+            guessLetter();
+          } else {
+            console.log(`\n ${chalk.bold.green("YOU WIN!!!")} \n\n`);
+            initializeGame();
+          }
         } else {
-          console.log(`\n ${chalk.bold.green("You got it RIGHT!!")}`);
-          console.log("\n" + chalk.bold.yellowBright(" You have " + guessCount + " guesses left..\n"));
-        }
-
-        let currentWord = randomWord.getWord();
-        console.log(`\n> ${currentWord} \n`);
-
-        if (currentWord.includes("_")) {
+          console.log(`\n ${chalk.bold.cyan("Don't repeat letters")} \n`);
+          currentWord = randomWord.getWord();
+          console.log(`\n> ${currentWord} \n`);
           guessLetter();
-        } else {
-          console.log(`\n ${chalk.bold.green("YOU WIN!!!")} \n\n`);
-          initializeGame();
         }
       });
   } else {
