@@ -12,12 +12,16 @@ Letter.prototype.getLetter = function() {
 };
 
 Letter.prototype.checkGuessedLetter = function(guessedLetter) {
-  console.log(`Guessed: ${guessedLetter}`);
-  console.log(`Letter this: ${this.letter}`);
+  // console.log(`Guessed: ${guessedLetter}`);
+  // console.log(`Letter this: ${this.letter}`);
   if (guessedLetter === this.letter) {
     this.isGuessed = true;
   }
   return this.isGuessed;
+};
+
+Letter.prototype.showLetter = function() {
+  this.isGuessed = true;
 };
 
 module.exports = Letter;

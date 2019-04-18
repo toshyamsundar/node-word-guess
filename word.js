@@ -17,13 +17,24 @@ Word.prototype.getWord = function() {
 };
 
 Word.prototype.checkWordForLetter = function(guessedLetter) {
-  console.log(`Checking ${guessedLetter} in Word`);
+  // console.log(`Checking ${guessedLetter} in Word`);
+  this.isCorrectLetter = false;
   this.randomWord.forEach(letter => {
-    if (letter.checkGuessedLetter(guessedLetter)) {
-      this.isCorrectLetter = true;
+    if (!letter.isGuessed) {
+      if (letter.checkGuessedLetter(guessedLetter)) {
+        this.isCorrectLetter = true;
+      }
     }
   });
   return this.isCorrectLetter;
+};
+
+Word.prototype.showFullWord = function() {
+  this.randomWord.forEach(letter => {
+    if (!letter.isGuessed) {
+      letter.showLetter();
+    }
+  });
 };
 
 module.exports = Word;

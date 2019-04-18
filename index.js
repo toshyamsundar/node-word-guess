@@ -1,5 +1,6 @@
 let Word = require("./word");
 let inquirer = require("inquirer");
+let chalk = require("chalk");
 
 let randomWords = [
   "SAILBOAT",
@@ -144,10 +145,12 @@ let guessLetter = () => {
         let isCorrectLetter = randomWord.checkWordForLetter(response.guessedLetter.toUpperCase());
 
         if (!isCorrectLetter) {
+          console.log(`\n ${chalk.bold.red("You got it WRONG!!")}`);
           guessCount--;
-          console.log("You are wrong!!");
+          console.log("\n" + chalk.bold.yellowBright(" You have " + guessCount + " guesses left..\n"));
         } else {
-          console.log("You are correct!!");
+          console.log(`\n ${chalk.bold.green("You got it RIGHT!!")}`);
+          console.log("\n" + chalk.bold.yellowBright(" You have " + guessCount + " guesses left..\n"));
         }
 
         let currentWord = randomWord.getWord();
@@ -156,10 +159,16 @@ let guessLetter = () => {
         if (currentWord.includes("_")) {
           guessLetter();
         } else {
-          console.log(`\n YOU WIN!!! \n\n`);
+          console.log(`\n ${chalk.bold.green("YOU WIN!!!")} \n\n`);
           initializeGame();
         }
       });
+  } else {
+    console.log(`\n ${chalk.bold.red("YOU LOSER!!!")} \n\n`);
+    randomWord.showFullWord();
+    let currentWord = randomWord.getWord();
+    console.log(`> ${chalk.bold.blueBright(currentWord)} \n`);
+    initializeGame();
   }
 };
 
@@ -181,6 +190,7 @@ let initializeGame = () => {
         generateRandomWord();
         let currentWord = randomWord.getWord();
         console.log(`\n> ${currentWord} \n`);
+        console.log("\n" + chalk.bold.yellowBright(" You have " + guessCount + " guesses left..\n"));
         guessLetter();
       }
     });
