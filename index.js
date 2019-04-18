@@ -176,6 +176,7 @@ let initializeGame = () => {
   guessCount = 5;
   randomWord = "";
 
+  console.log("\n");
   inquirer
     .prompt([
       {

@@ -12,8 +12,6 @@ Letter.prototype.getLetter = function() {
 };
 
 Letter.prototype.checkGuessedLetter = function(guessedLetter) {
-  // console.log(`Guessed: ${guessedLetter}`);
-  // console.log(`Letter this: ${this.letter}`);
   if (guessedLetter === this.letter) {
     this.isGuessed = true;
   }

@@ -17,7 +17,6 @@ Word.prototype.getWord = function() {
 };
 
 Word.prototype.checkWordForLetter = function(guessedLetter) {
-  // console.log(`Checking ${guessedLetter} in Word`);
   this.isCorrectLetter = false;
   this.randomWord.forEach(letter => {
     if (!letter.isGuessed) {
