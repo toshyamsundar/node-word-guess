@@ -123,7 +123,7 @@ let randomWords = [
 ];
 
 let randomWord = "";
-let guessCount = 5;
+let guessCount = 8;
 let guessedLetters = [];
 
 let generateRandomWord = () => {
@@ -184,8 +184,9 @@ let guessLetter = () => {
 };
 
 let initializeGame = () => {
-  guessCount = 5;
+  guessCount = 8;
   randomWord = "";
+  guessedLetters = [];
 
   console.log("\n");
   inquirer
